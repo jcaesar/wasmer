@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `lib/cli/src/commands/run.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>run.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://wasmer.io/static/icons/favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../wasmer_cli/index.html'><div class='logo-container'><img src='https://github.com/wasmerio.png?size=200' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `lib/cli/src/commands/run.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>run.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://wasmer.io/images/icons/favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../wasmer_cli/index.html'><div class='logo-container'><img src='https://github.com/wasmerio.png?size=200' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -390,6 +390,36 @@
 <span id="389">389</span>
 <span id="390">390</span>
 <span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">common</span>::<span class="ident">get_cache_dir</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
@@ -545,21 +575,45 @@
         <span class="comment">// If WASI is enabled, try to execute it with it</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;wasi&quot;</span>)]</span>
         {
-            <span class="kw">let</span> <span class="ident">wasi_version</span> <span class="op">=</span> <span class="ident">Wasi</span>::<span class="ident">get_version</span>(<span class="kw-2">&amp;</span><span class="ident">module</span>);
-            <span class="kw">if</span> <span class="ident">wasi_version</span>.<span class="ident">is_some</span>() {
-                <span class="kw">let</span> <span class="ident">program_name</span> <span class="op">=</span> <span class="self">self</span>
-                    .<span class="ident">command_name</span>
-                    .<span class="ident">clone</span>()
-                    .<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> {
-                        <span class="self">self</span>.<span class="ident">path</span>
-                            .<span class="ident">file_name</span>()
-                            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">to_string_lossy</span>().<span class="ident">to_string</span>())
-                    })
-                    .<span class="ident">unwrap_or_default</span>();
-                <span class="kw">return</span> <span class="self">self</span>
-                    .<span class="ident">wasi</span>
-                    .<span class="ident">execute</span>(<span class="ident">module</span>, <span class="ident">program_name</span>, <span class="self">self</span>.<span class="ident">args</span>.<span class="ident">clone</span>())
-                    .<span class="ident">with_context</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;WASI execution failed&quot;</span>);
+            <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">BTreeSet</span>;
+            <span class="kw">use</span> <span class="ident">wasmer_wasi</span>::<span class="ident">WasiVersion</span>;
+
+            <span class="kw">let</span> <span class="ident">wasi_versions</span> <span class="op">=</span> <span class="ident">Wasi</span>::<span class="ident">get_versions</span>(<span class="kw-2">&amp;</span><span class="ident">module</span>);
+            <span class="kw">match</span> <span class="ident">wasi_versions</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">wasi_versions</span>) <span class="kw">if</span> <span class="op">!</span><span class="ident">wasi_versions</span>.<span class="ident">is_empty</span>() <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="kw">if</span> <span class="ident">wasi_versions</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span> {
+                        <span class="kw">let</span> <span class="ident">get_version_list</span> <span class="op">=</span> <span class="op">|</span><span class="ident">versions</span>: <span class="kw-2">&amp;</span><span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">WasiVersion</span><span class="op">&gt;</span><span class="op">|</span> <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+                            <span class="ident">versions</span>
+                                .<span class="ident">iter</span>()
+                                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;`{}`&quot;</span>, <span class="ident">v</span>.<span class="ident">get_namespace_str</span>()))
+                                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+                                .<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>)
+                        };
+                        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">wasi</span>.<span class="ident">deny_multiple_wasi_versions</span> {
+                            <span class="kw">let</span> <span class="ident">version_list</span> <span class="op">=</span> <span class="ident">get_version_list</span>(<span class="kw-2">&amp;</span><span class="ident">wasi_versions</span>);
+                            <span class="macro">bail</span><span class="macro">!</span>(<span class="string">&quot;Found more than 1 WASI version in this module ({}) and `--deny-multiple-wasi-versions` is enabled.&quot;</span>, <span class="ident">version_list</span>);
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">wasi</span>.<span class="ident">allow_multiple_wasi_versions</span> {
+                            <span class="kw">let</span> <span class="ident">version_list</span> <span class="op">=</span> <span class="ident">get_version_list</span>(<span class="kw-2">&amp;</span><span class="ident">wasi_versions</span>);
+                            <span class="macro">warning</span><span class="macro">!</span>(<span class="string">&quot;Found more than 1 WASI version in this module ({}). If this is intentional, pass `--allow-multiple-wasi-versions` to suppress this warning.&quot;</span>, <span class="ident">version_list</span>);
+                        }
+                    }
+
+                    <span class="kw">let</span> <span class="ident">program_name</span> <span class="op">=</span> <span class="self">self</span>
+                        .<span class="ident">command_name</span>
+                        .<span class="ident">clone</span>()
+                        .<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                            <span class="self">self</span>.<span class="ident">path</span>
+                                .<span class="ident">file_name</span>()
+                                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">to_string_lossy</span>().<span class="ident">to_string</span>())
+                        })
+                        .<span class="ident">unwrap_or_default</span>();
+                    <span class="kw">return</span> <span class="self">self</span>
+                        .<span class="ident">wasi</span>
+                        .<span class="ident">execute</span>(<span class="ident">module</span>, <span class="ident">program_name</span>, <span class="self">self</span>.<span class="ident">args</span>.<span class="ident">clone</span>())
+                        .<span class="ident">with_context</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;WASI execution failed&quot;</span>);
+                }
+                <span class="comment">// not WASI</span>
+                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> (),
             }
         }
 
@@ -574,19 +628,19 @@
 
     <span class="kw">fn</span> <span class="ident">get_module</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Module</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">contents</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">fs</span>::<span class="ident">read</span>(<span class="self">self</span>.<span class="ident">path</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;native&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dylib&quot;</span>)]</span>
         {
-            <span class="kw">if</span> <span class="ident">wasmer_engine_native</span>::<span class="ident">NativeArtifact</span>::<span class="ident">is_deserializable</span>(<span class="kw-2">&amp;</span><span class="ident">contents</span>) {
-                <span class="kw">let</span> <span class="ident">engine</span> <span class="op">=</span> <span class="ident">wasmer_engine_native</span>::<span class="ident">Native</span>::<span class="ident">headless</span>().<span class="ident">engine</span>();
+            <span class="kw">if</span> <span class="ident">wasmer_engine_dylib</span>::<span class="ident">DylibArtifact</span>::<span class="ident">is_deserializable</span>(<span class="kw-2">&amp;</span><span class="ident">contents</span>) {
+                <span class="kw">let</span> <span class="ident">engine</span> <span class="op">=</span> <span class="ident">wasmer_engine_dylib</span>::<span class="ident">Dylib</span>::<span class="ident">headless</span>().<span class="ident">engine</span>();
                 <span class="kw">let</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">Store</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">engine</span>);
                 <span class="kw">let</span> <span class="ident">module</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">Module</span>::<span class="ident">deserialize_from_file</span>(<span class="kw-2">&amp;</span><span class="ident">store</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">path</span>)<span class="question-mark">?</span> };
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">module</span>);
             }
         }
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;jit&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;universal&quot;</span>)]</span>
         {
-            <span class="kw">if</span> <span class="ident">wasmer_engine_jit</span>::<span class="ident">JITArtifact</span>::<span class="ident">is_deserializable</span>(<span class="kw-2">&amp;</span><span class="ident">contents</span>) {
-                <span class="kw">let</span> <span class="ident">engine</span> <span class="op">=</span> <span class="ident">wasmer_engine_jit</span>::<span class="ident">JIT</span>::<span class="ident">headless</span>().<span class="ident">engine</span>();
+            <span class="kw">if</span> <span class="ident">wasmer_engine_universal</span>::<span class="ident">UniversalArtifact</span>::<span class="ident">is_deserializable</span>(<span class="kw-2">&amp;</span><span class="ident">contents</span>) {
+                <span class="kw">let</span> <span class="ident">engine</span> <span class="op">=</span> <span class="ident">wasmer_engine_universal</span>::<span class="ident">Universal</span>::<span class="ident">headless</span>().<span class="ident">engine</span>();
                 <span class="kw">let</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">Store</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">engine</span>);
                 <span class="kw">let</span> <span class="ident">module</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">Module</span>::<span class="ident">deserialize_from_file</span>(<span class="kw-2">&amp;</span><span class="ident">store</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">path</span>)<span class="question-mark">?</span> };
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">module</span>);
@@ -664,19 +718,21 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cache_dir_root</span> <span class="op">=</span> <span class="ident">get_cache_dir</span>();
         <span class="ident">cache_dir_root</span>.<span class="ident">push</span>(<span class="ident">compiler_type</span>.<span class="ident">to_string</span>());
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">FileSystemCache</span>::<span class="ident">new</span>(<span class="ident">cache_dir_root</span>)<span class="question-mark">?</span>;
-        <span class="comment">// Important: Native files need to have a `.dll` extension on Windows, otherwise</span>
-        <span class="comment">// they will not load, so we just add an extension always to make it easier</span>
-        <span class="comment">// to recognize as well.</span>
+
+        <span class="comment">// Important: Dylib files need to have a `.dll` extension on</span>
+        <span class="comment">// Windows, otherwise they will not load, so we just add an</span>
+        <span class="comment">// extension always to make it easier to recognize as well.</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_patterns</span>)]</span>
         <span class="kw">let</span> <span class="ident">extension</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">engine_type</span> {
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;native&quot;</span>)]</span>
-            <span class="ident">EngineType</span>::<span class="ident">Native</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">wasmer_engine_native</span>::<span class="ident">NativeArtifact</span>::<span class="ident">get_default_extension</span>(<span class="kw-2">&amp;</span><span class="ident">Triple</span>::<span class="ident">host</span>())
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dylib&quot;</span>)]</span>
+            <span class="ident">EngineType</span>::<span class="ident">Dylib</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">wasmer_engine_dylib</span>::<span class="ident">DylibArtifact</span>::<span class="ident">get_default_extension</span>(<span class="kw-2">&amp;</span><span class="ident">Triple</span>::<span class="ident">host</span>())
                     .<span class="ident">to_string</span>()
             }
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;jit&quot;</span>)]</span>
-            <span class="ident">EngineType</span>::<span class="ident">JIT</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">wasmer_engine_jit</span>::<span class="ident">JITArtifact</span>::<span class="ident">get_default_extension</span>(<span class="kw-2">&amp;</span><span class="ident">Triple</span>::<span class="ident">host</span>()).<span class="ident">to_string</span>()
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;universal&quot;</span>)]</span>
+            <span class="ident">EngineType</span>::<span class="ident">Universal</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">wasmer_engine_universal</span>::<span class="ident">UniversalArtifact</span>::<span class="ident">get_default_extension</span>(<span class="kw-2">&amp;</span><span class="ident">Triple</span>::<span class="ident">host</span>())
+                    .<span class="ident">to_string</span>()
             }
             <span class="comment">// We use the compiler type as the default extension</span>
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">compiler_type</span>.<span class="ident">to_string</span>(),
@@ -708,13 +764,17 @@
                     <span class="kw">let</span> <span class="ident">suggested_command</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(
                         <span class="string">&quot;wasmer {} -i {} {}&quot;</span>,
                         <span class="self">self</span>.<span class="ident">path</span>.<span class="ident">display</span>(),
-                        <span class="ident">suggested_functions</span>.<span class="ident">get</span>(<span class="number">0</span>).<span class="ident">unwrap</span>(),
+                        <span class="ident">suggested_functions</span>.<span class="ident">get</span>(<span class="number">0</span>).<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="ident">String</span>::<span class="ident">new</span>()),
                         <span class="ident">args</span>.<span class="ident">join</span>(<span class="string">&quot; &quot;</span>)
                     );
-                    <span class="kw">let</span> <span class="ident">suggestion</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(
-                        <span class="string">&quot;Similar functions found: {}.\nTry with: {}&quot;</span>,
-                        <span class="ident">names</span>, <span class="ident">suggested_command</span>
-                    );
+                    <span class="kw">let</span> <span class="ident">suggestion</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">suggested_functions</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+                        <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;Can not find any export functions.&quot;</span>)
+                    } <span class="kw">else</span> {
+                        <span class="macro">format</span><span class="macro">!</span>(
+                            <span class="string">&quot;Similar functions found: {}.\nTry with: {}&quot;</span>,
+                            <span class="ident">names</span>, <span class="ident">suggested_command</span>
+                        )
+                    };
                     <span class="kw">match</span> <span class="ident">e</span> {
                         <span class="ident">ExportError</span>::<span class="ident">Missing</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="macro">anyhow</span><span class="macro">!</span>(<span class="string">&quot;No export `{}` found in the module.\n{}&quot;</span>, <span class="ident">name</span>, <span class="ident">suggestion</span>)
@@ -783,4 +843,5 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "wasmer_cli";</script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="wasmer_cli"></div>
+    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

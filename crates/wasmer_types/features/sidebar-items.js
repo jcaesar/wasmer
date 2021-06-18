@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Features","Controls which experimental features will be enabled. Features usually have a corresponding WebAssembly proposal."]]});
+initSidebarItems({"struct":[["ArchivedFeatures","An archived `Features`"],["Features","Controls which experimental features will be enabled. Features usually have a corresponding WebAssembly proposal."],["FeaturesResolver","The resolver for archived `Features`"]]});

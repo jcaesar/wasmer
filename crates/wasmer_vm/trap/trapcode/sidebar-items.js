@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["TrapCode","A trap code describing the reason for a trap."]]});
+initSidebarItems({"enum":[["ArchivedTrapCode","An archived `TrapCode`"],["TrapCode","A trap code describing the reason for a trap."],["TrapCodeResolver","The resolver for archived `TrapCode`"]]});

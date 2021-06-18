@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `lib/wasi/src/state/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://wasmer.io/static/icons/favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../wasmer_wasi/index.html'><div class='logo-container'><img src='https://github.com/wasmerio.png?size=200' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `lib/wasi/src/state/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://wasmer.io/images/icons/favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../wasmer_wasi/index.html'><div class='logo-container'><img src='https://github.com/wasmerio.png?size=200' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
@@ -1450,130 +1450,6 @@
 <span id="1449">1449</span>
 <span id="1450">1450</span>
 <span id="1451">1451</span>
-<span id="1452">1452</span>
-<span id="1453">1453</span>
-<span id="1454">1454</span>
-<span id="1455">1455</span>
-<span id="1456">1456</span>
-<span id="1457">1457</span>
-<span id="1458">1458</span>
-<span id="1459">1459</span>
-<span id="1460">1460</span>
-<span id="1461">1461</span>
-<span id="1462">1462</span>
-<span id="1463">1463</span>
-<span id="1464">1464</span>
-<span id="1465">1465</span>
-<span id="1466">1466</span>
-<span id="1467">1467</span>
-<span id="1468">1468</span>
-<span id="1469">1469</span>
-<span id="1470">1470</span>
-<span id="1471">1471</span>
-<span id="1472">1472</span>
-<span id="1473">1473</span>
-<span id="1474">1474</span>
-<span id="1475">1475</span>
-<span id="1476">1476</span>
-<span id="1477">1477</span>
-<span id="1478">1478</span>
-<span id="1479">1479</span>
-<span id="1480">1480</span>
-<span id="1481">1481</span>
-<span id="1482">1482</span>
-<span id="1483">1483</span>
-<span id="1484">1484</span>
-<span id="1485">1485</span>
-<span id="1486">1486</span>
-<span id="1487">1487</span>
-<span id="1488">1488</span>
-<span id="1489">1489</span>
-<span id="1490">1490</span>
-<span id="1491">1491</span>
-<span id="1492">1492</span>
-<span id="1493">1493</span>
-<span id="1494">1494</span>
-<span id="1495">1495</span>
-<span id="1496">1496</span>
-<span id="1497">1497</span>
-<span id="1498">1498</span>
-<span id="1499">1499</span>
-<span id="1500">1500</span>
-<span id="1501">1501</span>
-<span id="1502">1502</span>
-<span id="1503">1503</span>
-<span id="1504">1504</span>
-<span id="1505">1505</span>
-<span id="1506">1506</span>
-<span id="1507">1507</span>
-<span id="1508">1508</span>
-<span id="1509">1509</span>
-<span id="1510">1510</span>
-<span id="1511">1511</span>
-<span id="1512">1512</span>
-<span id="1513">1513</span>
-<span id="1514">1514</span>
-<span id="1515">1515</span>
-<span id="1516">1516</span>
-<span id="1517">1517</span>
-<span id="1518">1518</span>
-<span id="1519">1519</span>
-<span id="1520">1520</span>
-<span id="1521">1521</span>
-<span id="1522">1522</span>
-<span id="1523">1523</span>
-<span id="1524">1524</span>
-<span id="1525">1525</span>
-<span id="1526">1526</span>
-<span id="1527">1527</span>
-<span id="1528">1528</span>
-<span id="1529">1529</span>
-<span id="1530">1530</span>
-<span id="1531">1531</span>
-<span id="1532">1532</span>
-<span id="1533">1533</span>
-<span id="1534">1534</span>
-<span id="1535">1535</span>
-<span id="1536">1536</span>
-<span id="1537">1537</span>
-<span id="1538">1538</span>
-<span id="1539">1539</span>
-<span id="1540">1540</span>
-<span id="1541">1541</span>
-<span id="1542">1542</span>
-<span id="1543">1543</span>
-<span id="1544">1544</span>
-<span id="1545">1545</span>
-<span id="1546">1546</span>
-<span id="1547">1547</span>
-<span id="1548">1548</span>
-<span id="1549">1549</span>
-<span id="1550">1550</span>
-<span id="1551">1551</span>
-<span id="1552">1552</span>
-<span id="1553">1553</span>
-<span id="1554">1554</span>
-<span id="1555">1555</span>
-<span id="1556">1556</span>
-<span id="1557">1557</span>
-<span id="1558">1558</span>
-<span id="1559">1559</span>
-<span id="1560">1560</span>
-<span id="1561">1561</span>
-<span id="1562">1562</span>
-<span id="1563">1563</span>
-<span id="1564">1564</span>
-<span id="1565">1565</span>
-<span id="1566">1566</span>
-<span id="1567">1567</span>
-<span id="1568">1568</span>
-<span id="1569">1569</span>
-<span id="1570">1570</span>
-<span id="1571">1571</span>
-<span id="1572">1572</span>
-<span id="1573">1573</span>
-<span id="1574">1574</span>
-<span id="1575">1575</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! WARNING: the API exposed here is unstable and very experimental.  Certain things are not ready</span>
 <span class="doccomment">//! yet and may be broken in patch releases.  If you&#39;re using this and have any specific needs,</span>
@@ -1648,8 +1524,8 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Kind</span> {
     <span class="ident">File</span> {
-        <span class="doccomment">/// the open file, if it&#39;s open</span>
-        <span class="ident">handle</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="doccomment">/// The open file, if it&#39;s open</span>
+        <span class="ident">handle</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="doccomment">/// The path on the host system where the file is located</span>
         <span class="doccomment">/// This is deprecated and will be removed soon</span>
         <span class="ident">path</span>: <span class="ident">PathBuf</span>,
@@ -1743,129 +1619,6 @@
 }
 
 <span class="kw">impl</span> <span class="ident">WasiFs</span> {
-    <span class="doccomment">/// Internal function for constructing a [`WasiFs`].  Please use</span>
-    <span class="doccomment">/// [`WasiState::new`].</span>
-    <span class="attribute">#[<span class="ident">deprecated</span>(
-        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.14.0&quot;</span>,
-        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;This method will change or be made private in the future.  Please use `WasiState::new` and the builder API instead.&quot;</span>
-    )]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">preopened_dirs</span>: <span class="kw-2">&amp;</span>[<span class="ident">PathBuf</span>],
-        <span class="ident">mapped_dirs</span>: <span class="kw-2">&amp;</span>[(<span class="ident">String</span>, <span class="ident">PathBuf</span>)],
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">wasi_fs</span>, <span class="ident">root_inode</span>) <span class="op">=</span> <span class="self">Self</span>::<span class="ident">new_init</span>()<span class="question-mark">?</span>;
-
-        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;wasi::fs::preopen_dirs&quot;</span>);
-        <span class="kw">for</span> <span class="ident">dir</span> <span class="kw">in</span> <span class="ident">preopened_dirs</span> {
-            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Attempting to preopen {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">dir</span>.<span class="ident">to_string_lossy</span>());
-            <span class="comment">// TODO: think about this</span>
-            <span class="kw">let</span> <span class="ident">default_rights</span> <span class="op">=</span> <span class="ident">ALL_RIGHTS</span>;
-            <span class="kw">let</span> <span class="ident">cur_dir_metadata</span> <span class="op">=</span> <span class="ident">dir</span>.<span class="ident">metadata</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-                <span class="macro">format</span><span class="macro">!</span>(
-                    <span class="string">&quot;Could not get metadata for file {:?}: {}&quot;</span>,
-                    <span class="ident">dir</span>,
-                    <span class="ident">e</span>.<span class="ident">to_string</span>()
-                )
-            })<span class="question-mark">?</span>;
-            <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cur_dir_metadata</span>.<span class="ident">is_dir</span>() {
-                <span class="ident">Kind</span>::<span class="ident">Dir</span> {
-                    <span class="ident">parent</span>: <span class="prelude-val">Some</span>(<span class="ident">root_inode</span>),
-                    <span class="ident">path</span>: <span class="ident">dir</span>.<span class="ident">clone</span>(),
-                    <span class="ident">entries</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
-                }
-            } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format</span><span class="macro">!</span>(
-                    <span class="string">&quot;WASI only supports pre-opened directories right now; found \&quot;{}\&quot;&quot;</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">dir</span>.<span class="ident">to_string_lossy</span>()
-                ));
-            };
-            <span class="comment">// TODO: handle nested pats in `file`</span>
-            <span class="kw">let</span> <span class="ident">inode</span> <span class="op">=</span> <span class="ident">wasi_fs</span>
-                .<span class="ident">create_inode</span>(<span class="ident">kind</span>, <span class="bool-val">true</span>, <span class="ident">dir</span>.<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>())
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-                    <span class="macro">format</span><span class="macro">!</span>(
-                        <span class="string">&quot;Failed to create inode for preopened dir: WASI error code: {}&quot;</span>,
-                        <span class="ident">e</span>
-                    )
-                })<span class="question-mark">?</span>;
-            <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">wasi_fs</span>
-                .<span class="ident">create_fd</span>(
-                    <span class="ident">default_rights</span>,
-                    <span class="ident">default_rights</span>,
-                    <span class="number">0</span>,
-                    <span class="ident">Fd</span>::<span class="ident">READ</span> <span class="op">|</span> <span class="ident">Fd</span>::<span class="ident">WRITE</span>,
-                    <span class="ident">inode</span>,
-                )
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Could not open fd for file {:?}: {}&quot;</span>, <span class="ident">dir</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
-            <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Kind</span>::<span class="ident">Root</span> { <span class="ident">entries</span> } <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">wasi_fs</span>.<span class="ident">inodes</span>[<span class="ident">root_inode</span>].<span class="ident">kind</span> {
-                <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">entries</span>.<span class="ident">insert</span>(<span class="ident">dir</span>.<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>(), <span class="ident">inode</span>);
-                <span class="kw">if</span> <span class="ident">result</span>.<span class="ident">is_some</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format</span><span class="macro">!</span>(
-                        <span class="string">&quot;Error: found collision in preopened directory names, `{}`&quot;</span>,
-                        <span class="ident">dir</span>.<span class="ident">to_string_lossy</span>()
-                    ));
-                }
-            }
-            <span class="ident">wasi_fs</span>.<span class="ident">preopen_fds</span>.<span class="ident">push</span>(<span class="ident">fd</span>);
-        }
-        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;wasi::fs::mapped_dirs&quot;</span>);
-        <span class="kw">for</span> (<span class="ident">alias</span>, <span class="ident">real_dir</span>) <span class="kw">in</span> <span class="ident">mapped_dirs</span> {
-            <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;Attempting to open {:?} at {}&quot;</span>, <span class="ident">real_dir</span>, <span class="ident">alias</span>);
-            <span class="comment">// TODO: think about this</span>
-            <span class="kw">let</span> <span class="ident">default_rights</span> <span class="op">=</span> <span class="ident">ALL_RIGHTS</span>;
-            <span class="kw">let</span> <span class="ident">cur_dir_metadata</span> <span class="op">=</span> <span class="ident">real_dir</span>.<span class="ident">metadata</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-                <span class="macro">format</span><span class="macro">!</span>(
-                    <span class="string">&quot;Could not get metadata for file {:?}: {}&quot;</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">real_dir</span>,
-                    <span class="ident">e</span>.<span class="ident">to_string</span>()
-                )
-            })<span class="question-mark">?</span>;
-            <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cur_dir_metadata</span>.<span class="ident">is_dir</span>() {
-                <span class="ident">Kind</span>::<span class="ident">Dir</span> {
-                    <span class="ident">parent</span>: <span class="prelude-val">Some</span>(<span class="ident">root_inode</span>),
-                    <span class="ident">path</span>: <span class="ident">real_dir</span>.<span class="ident">clone</span>(),
-                    <span class="ident">entries</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
-                }
-            } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format</span><span class="macro">!</span>(
-                    <span class="string">&quot;WASI only supports pre-opened directories right now; found \&quot;{:?}\&quot;&quot;</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">real_dir</span>,
-                ));
-            };
-            <span class="comment">// TODO: handle nested pats in `file`</span>
-            <span class="kw">let</span> <span class="ident">inode</span> <span class="op">=</span> <span class="ident">wasi_fs</span>
-                .<span class="ident">create_inode</span>(<span class="ident">kind</span>, <span class="bool-val">true</span>, <span class="ident">alias</span>.<span class="ident">clone</span>())
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-                    <span class="macro">format</span><span class="macro">!</span>(
-                        <span class="string">&quot;Failed to create inode for preopened dir: WASI error code: {}&quot;</span>,
-                        <span class="ident">e</span>
-                    )
-                })<span class="question-mark">?</span>;
-            <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">wasi_fs</span>
-                .<span class="ident">create_fd</span>(
-                    <span class="ident">default_rights</span>,
-                    <span class="ident">default_rights</span>,
-                    <span class="number">0</span>,
-                    <span class="ident">Fd</span>::<span class="ident">READ</span> <span class="op">|</span> <span class="ident">Fd</span>::<span class="ident">WRITE</span>,
-                    <span class="ident">inode</span>,
-                )
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Could not open fd for file {:?}: {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">real_dir</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
-            <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Kind</span>::<span class="ident">Root</span> { <span class="ident">entries</span> } <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">wasi_fs</span>.<span class="ident">inodes</span>[<span class="ident">root_inode</span>].<span class="ident">kind</span> {
-                <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">entries</span>.<span class="ident">insert</span>(<span class="ident">alias</span>.<span class="ident">clone</span>(), <span class="ident">inode</span>);
-                <span class="kw">if</span> <span class="ident">result</span>.<span class="ident">is_some</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format</span><span class="macro">!</span>(
-                        <span class="string">&quot;Error: found collision in preopened directory aliases, `{}`&quot;</span>,
-                        <span class="ident">alias</span>,
-                    ));
-                }
-            }
-            <span class="ident">wasi_fs</span>.<span class="ident">preopen_fds</span>.<span class="ident">push</span>(<span class="ident">fd</span>);
-        }
-
-        <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;wasi::fs::end&quot;</span>);
-        <span class="prelude-val">Ok</span>(<span class="ident">wasi_fs</span>)
-    }
-
     <span class="doccomment">/// Created for the builder API. like `new` but with more information</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new_with_preopen</span>(<span class="ident">preopens</span>: <span class="kw-2">&amp;</span>[<span class="ident">PreopenedDir</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">wasi_fs</span>, <span class="ident">root_inode</span>) <span class="op">=</span> <span class="self">Self</span>::<span class="ident">new_init</span>()<span class="question-mark">?</span>;
@@ -2042,35 +1795,35 @@
     }
 
     <span class="doccomment">/// Get the `WasiFile` object at stdout</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">std_dev_get</span>(<span class="ident">__WASI_STDOUT_FILENO</span>)
     }
     <span class="doccomment">/// Get the `WasiFile` object at stdout mutably</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdout_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdout_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">std_dev_get_mut</span>(<span class="ident">__WASI_STDOUT_FILENO</span>)
     }
 
     <span class="doccomment">/// Get the `WasiFile` object at stderr</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stderr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stderr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">std_dev_get</span>(<span class="ident">__WASI_STDERR_FILENO</span>)
     }
     <span class="doccomment">/// Get the `WasiFile` object at stderr mutably</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stderr_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stderr_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">std_dev_get_mut</span>(<span class="ident">__WASI_STDERR_FILENO</span>)
     }
 
     <span class="doccomment">/// Get the `WasiFile` object at stdin</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">std_dev_get</span>(<span class="ident">__WASI_STDIN_FILENO</span>)
     }
     <span class="doccomment">/// Get the `WasiFile` object at stdin mutably</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdin_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdin_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">std_dev_get_mut</span>(<span class="ident">__WASI_STDIN_FILENO</span>)
     }
 
     <span class="doccomment">/// Internal helper function to get a standard device handle.</span>
     <span class="doccomment">/// Expects one of `__WASI_STDIN_FILENO`, `__WASI_STDOUT_FILENO`, `__WASI_STDERR_FILENO`.</span>
-    <span class="kw">fn</span> <span class="ident">std_dev_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fd</span>: <span class="ident">__wasi_fd_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">std_dev_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fd</span>: <span class="ident">__wasi_fd_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">fd</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">fd_map</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">fd</span>) {
             <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Kind</span>::<span class="ident">File</span> { <span class="kw-2">ref</span> <span class="ident">handle</span>, .. } <span class="op">=</span> <span class="self">self</span>.<span class="ident">inodes</span>[<span class="ident">fd</span>.<span class="ident">inode</span>].<span class="ident">kind</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">handle</span>)
@@ -2088,7 +1841,7 @@
     <span class="kw">fn</span> <span class="ident">std_dev_get_mut</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">fd</span>: <span class="ident">__wasi_fd_t</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">fd</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">fd_map</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">fd</span>) {
             <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Kind</span>::<span class="ident">File</span> { <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">handle</span>, .. } <span class="op">=</span> <span class="self">self</span>.<span class="ident">inodes</span>[<span class="ident">fd</span>.<span class="ident">inode</span>].<span class="ident">kind</span> {
                 <span class="prelude-val">Ok</span>(<span class="ident">handle</span>)
@@ -2186,7 +1939,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">open_file_at</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">base</span>: <span class="ident">__wasi_fd_t</span>,
-        <span class="ident">file</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span>,
+        <span class="ident">file</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span>,
         <span class="ident">open_flags</span>: <span class="ident">u16</span>,
         <span class="ident">name</span>: <span class="ident">String</span>,
         <span class="ident">rights</span>: <span class="ident">__wasi_rights_t</span>,
@@ -2239,8 +1992,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_file</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">fd</span>: <span class="ident">__wasi_fd_t</span>,
-        <span class="ident">file</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
+        <span class="ident">file</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">WasiFsError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">file</span>);
         <span class="kw">match</span> <span class="ident">fd</span> {
             <span class="ident">__WASI_STDIN_FILENO</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -2361,7 +2114,7 @@
                             <span class="kw">let</span> <span class="ident">file_type</span> <span class="op">=</span> <span class="ident">metadata</span>.<span class="ident">file_type</span>();
                             <span class="comment">// we want to insert newly opened dirs and files, but not transient symlinks</span>
                             <span class="comment">// TODO: explain why (think about this deeply when well rested)</span>
-                            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">should_insert</span> <span class="op">=</span> <span class="bool-val">false</span>;
+                            <span class="kw">let</span> <span class="ident">should_insert</span>;
 
                             <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">file_type</span>.<span class="ident">is_dir</span>() {
                                 <span class="ident">should_insert</span> <span class="op">=</span> <span class="bool-val">true</span>;
@@ -2380,6 +2133,7 @@
                                     <span class="ident">fd</span>: <span class="prelude-val">None</span>,
                                 }
                             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">file_type</span>.<span class="ident">is_symlink</span>() {
+                                <span class="ident">should_insert</span> <span class="op">=</span> <span class="bool-val">false</span>;
                                 <span class="kw">let</span> <span class="ident">link_value</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">read_link</span>().<span class="ident">ok</span>().<span class="ident">ok_or</span>(<span class="ident">__WASI_EIO</span>)<span class="question-mark">?</span>;
                                 <span class="macro">debug</span><span class="macro">!</span>(<span class="string">&quot;attempting to decompose path {:?}&quot;</span>, <span class="ident">link_value</span>);
 
@@ -2392,7 +2146,7 @@
                                 <span class="ident">symlink_count</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                                 <span class="ident">Kind</span>::<span class="ident">Symlink</span> {
                                     <span class="ident">base_po_dir</span>: <span class="ident">pre_open_dir_fd</span>,
-                                    <span class="ident">path_to_symlink</span>: <span class="ident">relative_path</span>,
+                                    <span class="ident">path_to_symlink</span>: <span class="ident">relative_path</span>.<span class="ident">to_owned</span>(),
                                     <span class="ident">relative_path</span>: <span class="ident">link_value</span>,
                                 }
                             } <span class="kw">else</span> {
@@ -2534,18 +2288,37 @@
         <span class="prelude-val">Ok</span>(<span class="ident">cur_inode</span>)
     }
 
-    <span class="doccomment">/// Splits a path into the first preopened directory that is a parent of it,</span>
-    <span class="doccomment">/// if such a preopened directory exists, and the rest of the path.</span>
+    <span class="doccomment">/// Finds the preopened directory that is the &quot;best match&quot; for the given path and</span>
+    <span class="doccomment">/// returns a path relative to this preopened directory.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// NOTE: this behavior seems to be not the same as what libpreopen is</span>
-    <span class="doccomment">/// doing in WASI.</span>
+    <span class="doccomment">/// The &quot;best match&quot; is the preopened directory that has the longest prefix of the</span>
+    <span class="doccomment">/// given path. For example, given preopened directories [`a`, `a/b`, `a/c`] and</span>
+    <span class="doccomment">/// the path `a/b/c/file`, we will return the fd corresponding to the preopened</span>
+    <span class="doccomment">/// directory, `a/b` and the relative path `c/file`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// TODO: evaluate users of this function and explain why this behavior is</span>
-    <span class="doccomment">/// not the same as libpreopen or update its behavior to be the same.</span>
-    <span class="kw">fn</span> <span class="ident">path_into_pre_open_and_relative_path</span>(
+    <span class="doccomment">/// In the case of a tie, the later preopened fd is preferred.</span>
+    <span class="kw">fn</span> <span class="ident">path_into_pre_open_and_relative_path</span><span class="op">&lt;</span><span class="lifetime">&#39;path</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">__wasi_fd_t</span>, <span class="ident">PathBuf</span>), <span class="ident">__wasi_errno_t</span><span class="op">&gt;</span> {
+        <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;path</span> <span class="ident">Path</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">__wasi_fd_t</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;path</span> <span class="ident">Path</span>), <span class="ident">__wasi_errno_t</span><span class="op">&gt;</span> {
+        <span class="kw">enum</span> <span class="ident">BaseFdAndRelPath</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+            <span class="prelude-val">None</span>,
+            <span class="ident">BestMatch</span> {
+                <span class="ident">fd</span>: <span class="ident">__wasi_fd_t</span>,
+                <span class="ident">rel_path</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Path</span>,
+                <span class="ident">max_seen</span>: <span class="ident">usize</span>,
+            },
+        }
+
+        <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">BaseFdAndRelPath</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+            <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">max_seen</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+                <span class="kw">match</span> <span class="self">self</span> {
+                    <span class="self">Self</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+                    <span class="self">Self</span>::<span class="ident">BestMatch</span> { <span class="ident">max_seen</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">max_seen</span>,
+                }
+            }
+        }
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">BaseFdAndRelPath</span>::<span class="prelude-val">None</span>;
         <span class="comment">// for each preopened directory</span>
         <span class="kw">for</span> <span class="ident">po_fd</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">preopen_fds</span> {
             <span class="kw">let</span> <span class="ident">po_inode</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">fd_map</span>[<span class="ident">po_fd</span>].<span class="ident">inode</span>;
@@ -2555,46 +2328,25 @@
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;Preopened FD that&#39;s not a directory or the root&quot;</span>),
             };
             <span class="comment">// stem path based on it</span>
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">rest</span>) <span class="op">=</span> <span class="ident">path</span>.<span class="ident">strip_prefix</span>(<span class="ident">po_path</span>) {
-                <span class="comment">// if any path meets this criteria</span>
-                <span class="comment">// (verify that all remaining components are not symlinks except for maybe last? (or do the more complex logic of resolving intermediary symlinks))</span>
-                <span class="comment">// return preopened dir and the rest of the path</span>
-
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="kw-2">*</span><span class="ident">po_fd</span>, <span class="ident">rest</span>.<span class="ident">to_owned</span>()));
-            }
-        }
-        <span class="prelude-val">Err</span>(<span class="ident">__WASI_EINVAL</span>) <span class="comment">// this may not make sense</span>
-    }
-
-    <span class="comment">// if this is still dead code and the year is 2020 or later, please delete this function</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">path_relative_to_fd</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">fd</span>: <span class="ident">__wasi_fd_t</span>,
-        <span class="ident">inode</span>: <span class="ident">Inode</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PathBuf</span>, <span class="ident">__wasi_errno_t</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stack</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
-        <span class="kw">let</span> <span class="ident">base_fd</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_fd</span>(<span class="ident">fd</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">base_inode</span> <span class="op">=</span> <span class="ident">base_fd</span>.<span class="ident">inode</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cur_inode</span> <span class="op">=</span> <span class="ident">inode</span>;
-
-        <span class="kw">while</span> <span class="ident">cur_inode</span> <span class="op">!</span><span class="op">=</span> <span class="ident">base_inode</span> {
-            <span class="ident">stack</span>.<span class="ident">push</span>(<span class="self">self</span>.<span class="ident">inodes</span>[<span class="ident">cur_inode</span>].<span class="ident">name</span>.<span class="ident">clone</span>());
-            <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inodes</span>[<span class="ident">cur_inode</span>].<span class="ident">kind</span> {
-                <span class="ident">Kind</span>::<span class="ident">Dir</span> { <span class="ident">parent</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=</span> <span class="ident">parent</span> {
-                        <span class="ident">cur_inode</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">p</span>;
-                    }
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">stripped_path</span>) <span class="op">=</span> <span class="ident">path</span>.<span class="ident">strip_prefix</span>(<span class="ident">po_path</span>) {
+                <span class="comment">// find the max</span>
+                <span class="kw">let</span> <span class="ident">new_prefix_len</span> <span class="op">=</span> <span class="ident">po_path</span>.<span class="ident">as_os_str</span>().<span class="ident">len</span>();
+                <span class="comment">// we use &gt;= to favor later preopens because we iterate in order</span>
+                <span class="comment">// whereas WASI libc iterates in reverse to get this behavior.</span>
+                <span class="kw">if</span> <span class="ident">new_prefix_len</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">res</span>.<span class="ident">max_seen</span>() {
+                    <span class="ident">res</span> <span class="op">=</span> <span class="ident">BaseFdAndRelPath</span>::<span class="ident">BestMatch</span> {
+                        <span class="ident">fd</span>: <span class="kw-2">*</span><span class="ident">po_fd</span>,
+                        <span class="ident">rel_path</span>: <span class="ident">stripped_path</span>,
+                        <span class="ident">max_seen</span>: <span class="ident">new_prefix_len</span>,
+                    };
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">__WASI_EINVAL</span>),
             }
         }
-
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">PathBuf</span>::<span class="ident">new</span>();
-        <span class="kw">for</span> <span class="ident">p</span> <span class="kw">in</span> <span class="ident">stack</span>.<span class="ident">iter</span>().<span class="ident">rev</span>() {
-            <span class="ident">out</span>.<span class="ident">push</span>(<span class="ident">p</span>);
+        <span class="kw">match</span> <span class="ident">res</span> {
+            <span class="comment">// this error may not make sense depending on where it&#39;s called</span>
+            <span class="ident">BaseFdAndRelPath</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">__WASI_EINVAL</span>),
+            <span class="ident">BaseFdAndRelPath</span>::<span class="ident">BestMatch</span> { <span class="ident">fd</span>, <span class="ident">rel_path</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>((<span class="ident">fd</span>, <span class="ident">rel_path</span>)),
         }
-        <span class="prelude-val">Ok</span>(<span class="ident">out</span>)
     }
 
     <span class="doccomment">/// finds the number of directories between the fd and the inode if they&#39;re connected</span>
@@ -2922,7 +2674,7 @@
 
     <span class="kw">fn</span> <span class="ident">create_std_dev_inner</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">handle</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span>,
+        <span class="ident">handle</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasiFile</span><span class="op">&gt;</span>,
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
         <span class="ident">raw_fd</span>: <span class="ident">__wasi_fd_t</span>,
         <span class="ident">rights</span>: <span class="ident">__wasi_rights_t</span>,
@@ -3151,4 +2903,5 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "wasmer_wasi";</script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="wasmer_wasi"></div>
+    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>
