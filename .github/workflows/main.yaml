@@ -209,6 +209,9 @@ jobs:
       - name: Build C API
         run: |
           make build-capi
+      - name: SONAME check
+        run: objdump -p target/release/libwasmer_c_api.so | grep -q SONAME
+        if: startsWith(matrix.build, 'linux-')
       - name: Build Wasmer binary
         run: |
           make build-wasmer
