@@ -76,6 +76,8 @@ fn main() {
 
     build_wasm_c_api_headers(&crate_dir, &out_dir);
     build_inline_c_env_vars();
+    #[cfg(target_os = "linux")]
+    create_soname_corrected_symlink();
 
     if cfg!(target_os = "linux") {
         println!("cargo:rustc-cdylib-link-arg=-Wl,-soname,libwasmer.so");
@@ -226,37 +228,8 @@ fn new_builder(language: Language, crate_dir: &str, include_guard: &str, header:
 }
 
 fn build_inline_c_env_vars() {
-    use std::ffi::OsStr;
-
-    // We start from `OUT_DIR` because `cargo publish` uses a different directory
-    // so traversing from `CARGO_MANIFEST_DIR` is less reliable.
-    let mut shared_object_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
-
-    assert_eq!(shared_object_dir.file_name(), Some(OsStr::new("out")));
-    shared_object_dir.pop();
-
-    assert!(shared_object_dir
-        .file_name()
-        .as_ref()
-        .unwrap()
-        .to_string_lossy()
-        .to_string()
-        .starts_with("wasmer-c-api"));
-    shared_object_dir.pop();
-
-    assert_eq!(shared_object_dir.file_name(), Some(OsStr::new("build")));
-    shared_object_dir.pop();
-    shared_object_dir.pop(); // "debug" or "release"
-
-    // We either find `target` or the target triple if cross-compiling.
-    if shared_object_dir.file_name() != Some(OsStr::new("target")) {
-        let target = env::var("TARGET").unwrap();
-        assert_eq!(shared_object_dir.file_name(), Some(OsStr::new(&target)));
-    }
-
-    shared_object_dir.push(env::var("PROFILE").unwrap());
-
-    let shared_object_dir = shared_object_dir.as_path().to_string_lossy();
+    let shared_object_dir = get_shared_object_dir();
+    let shared_object_dir = shared_object_dir.to_string_lossy();
     let include_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 
     // The following options mean:
@@ -301,4 +274,57 @@ fn build_inline_c_env_vars() {
             }
         }
     );
+}
+
+fn get_shared_object_dir() -> PathBuf {
+    use std::ffi::OsStr;
+
+    // We start from `OUT_DIR` because `cargo publish` uses a different directory
+    // so traversing from `CARGO_MANIFEST_DIR` is less reliable.
+    let mut shared_object_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+
+    assert_eq!(shared_object_dir.file_name(), Some(OsStr::new("out")));
+    shared_object_dir.pop();
+
+    assert!(shared_object_dir
+        .file_name()
+        .as_ref()
+        .unwrap()
+        .to_string_lossy()
+        .to_string()
+        .starts_with("wasmer-c-api"));
+    shared_object_dir.pop();
+
+    assert_eq!(shared_object_dir.file_name(), Some(OsStr::new("build")));
+    shared_object_dir.pop();
+    shared_object_dir.pop(); // "debug" or "release"
+
+    // We either find `target` or the target triple if cross-compiling.
+    if shared_object_dir.file_name() != Some(OsStr::new("target")) {
+        let target = env::var("TARGET").unwrap();
+        assert_eq!(shared_object_dir.file_name(), Some(OsStr::new(&target)));
+    }
+
+    shared_object_dir.push(env::var("PROFILE").unwrap());
+
+    shared_object_dir.as_path().to_path_buf()
+}
+
+#[cfg(target_os = "linux")]
+fn create_soname_corrected_symlink() {
+    let link = get_shared_object_dir().join("libwasmer.so");
+    let original = PathBuf::from("libwasmer_c_api.so");
+    if link.symlink_metadata().is_ok() {
+        if let Ok(current_orig) = link.read_link() {
+            if current_orig == original {
+                return;
+            } else {
+                std::fs::remove_file(&link).unwrap();
+            }
+        } else {
+            panic!("{} exists and is not a symlink", link.to_string_lossy());
+        }
+    }
+    std::os::unix::fs::symlink(original, link)
+        .expect("Create libwasmer.so symlink for linkers that go by SONAME");
 }
