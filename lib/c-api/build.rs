@@ -76,6 +76,10 @@ fn main() {
 
     build_wasm_c_api_headers(&crate_dir, &out_dir);
     build_inline_c_env_vars();
+
+    if cfg!(target_os = "linux") {
+        println!("cargo:rustc-cdylib-link-arg=-Wl,-soname,libwasmer.so");
+    }
 }
 
 /// Check whether we should build the C API headers or set `inline-c` up.
