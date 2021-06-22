@@ -47,7 +47,7 @@ jobs:
             run_test: true
             run_test_capi: true
             run_integration_tests: true
-            use_sccache: true
+            use_sccache: false
           - build: macos-x64
             os: macos-latest
             llvm_url: 'https://github.com/wasmerio/llvm-custom-builds/releases/download/11.x/darwin-amd64.tar.gz'
@@ -55,13 +55,13 @@ jobs:
             cross_compilation_artifact_name: 'cross_compiled_from_mac'
             run_test: true
             run_test_capi: true
-            use_sccache: true
+            use_sccache: false
             run_integration_tests: true
           - build: macos-arm64
             os: macos-11.0
             target: aarch64-apple-darwin
             artifact_name: 'wasmer-darwin-arm64'
-            use_sccache: true
+            use_sccache: false
             run_test: false
             run_test_capi: false
           - build: windows-x64
@@ -71,13 +71,13 @@ jobs:
             artifact_name: 'wasmer-windows-amd64'
             cross_compilation_artifact_name: 'cross_compiled_from_win'
             run_integration_tests: true
-            use_sccache: true
+            use_sccache: false
             run_test: true
             run_test_capi: false # We can't run yet the capi tests on Windows
           #- build: linux-aarch64
           #  os: [self-hosted, linux, ARM64]
           #  random_sccache_port: true
-          #  use_sccache: true
+          #  use_sccache: false
           #  llvm_url: 'https://github.com/wasmerio/llvm-custom-builds/releases/download/11.x/linux-aarch64.tar.gz'
           #  artifact_name: 'wasmer-linux-aarch64'
           #  run_integration_tests: false
